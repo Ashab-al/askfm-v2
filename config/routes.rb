@@ -1,22 +1,13 @@
 Rails.application.routes.draw do
-  get 'posts/index'
-  get 'posts/show'
-  get 'posts/new'
-  get 'posts/create'
-  get 'posts/edit'
-  get 'posts/destroy'
-  get 'questions/index'
-  get 'questions/show'
-  get 'questions/new'
-  get 'questions/create'
-  get 'questions/edit'
-  get 'questions/update'
-  get 'questions/destroy'
-  get 'users/index'
-  get 'users/show'
-  get 'users/new'
-  get 'users/create'
-  get 'users/edit'
-  get 'users/update'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root 'users#index'
+
+  resources :users, except: [:delete]
+  #resources :sessions, only: [:new, :create, :destroy]
+  resources :questions
+  
+  get 'sign_up' => 'users#new'
+  # get 'log_out' => 'sessions#destroy'
+  # get 'log_in'  => 'sessions#new'
+  # get 'posts'   => 'posts#index'
+
 end
