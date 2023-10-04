@@ -34,7 +34,6 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-    #QuestionManager::QuestionCreator.call(question_params)
 
     if @question.save
       redirect_back fallback_location: root_path, notice: "Вопрос успешно добавлен"
@@ -55,12 +54,6 @@ class QuestionsController < ApplicationController
     params.require(:question).permit(:answer, :text)
   end
 
-  # def check_author_id
-  #   if question_params[:author_id].present? && (current_user.id != question_params[:author_id])
-  #     redirect_to root_path, alert: 'Доступ запрещён'
-  #   end
-  # end
-  
   def checking_for_nil_text_author_name
     unless question_params[:text].present? || question_params[:author_name].present?
       redirect_back fallback_location: root_path, notice: "Поля должны быть заполнены"

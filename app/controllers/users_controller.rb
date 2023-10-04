@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :load_user, except: [:index, :create, :new]
- # before_action :authorize_user, only: [:edit, :update]
 
   def index
     @users = User.all
@@ -44,7 +43,7 @@ class UsersController < ApplicationController
   private 
 
   def load_user
-    @user ||= User.friendly.find params[:id]
+    @user ||= User.find params[:id]
   end
 
   def update_user_params
