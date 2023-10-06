@@ -1,0 +1,15 @@
+<div class="question bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 p-4 my-4">
+  <h3 class="question-title text-lg font-semibold text-gray-900 dark:text-white">
+    <%= question.text %>
+  </h3>
+
+  <span class="question-date text-gray-500 dark:text-gray-400">
+    <%= question.created_at %>
+  </span>
+
+  <% if question.answer.present? %>
+    <p class="question-answer mt-2 text-gray-700 dark:text-white">
+      <%= question.answer %>
+    </p>
+  <% end %>
+</div>
