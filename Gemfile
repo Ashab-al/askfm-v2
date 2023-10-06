@@ -28,3 +28,4 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'hirb'
 end
+gem "tailwindcss-rails", "~> 2.0"
