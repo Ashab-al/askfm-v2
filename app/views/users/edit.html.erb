@@ -1,2 +1,41 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<section class="py-6 bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+          Измнение профиля    
+      </a>
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  Создать новый аккаунт
+              </h1>
+              <%= form_for @user, :html => {:class => 'space-y-4 md:space-y-6'} do |f| %>
+                <% if @user.errors.any? %>
+                  <div class="form__errors">
+                    <% for message in @user.errors.full_messages %>
+                    <div role="alert">
+                      <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                        Ошибка валидации
+                      </div>
+                      <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                        <p><%= message %></p>
+                      </div>
+                    </div>
+                  <% end %>
+                  </div>
+                <% end %>
+                <div>
+                  <%= f.label :name, 'Ваше имя', class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+                  <%= f.text_field :name, class: 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+                </div>
+                <div>
+                  <%= f.label :avatar_url, 'URL вашего аватара', class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+                  <%= f.text_field :avatar_url, class: 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+                </div>
+                <div>
+                  <%= f.submit 'Изменить', class: 'bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded' %>
+                </div>
+              <% end %>
+          </div>
+      </div>
+  </div>
+</section>
