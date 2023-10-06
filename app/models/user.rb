@@ -6,7 +6,6 @@ class User < ApplicationRecord
   EMAIL_REGEX = /\A[a-z\d_+.\-]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   USERNAME_REGEX = /\A@[a-zA-Z0-9_]+\z/i
 
-  friendly_id :username, use: :slugged
 
   has_many :questions, dependent: :destroy
   has_many :posts, dependent: :destroy
