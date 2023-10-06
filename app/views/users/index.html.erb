@@ -1,2 +1,20 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<div class="bg-gradient-to-r from-blue-400 to-indigo-600 dark:from-gray-800 dark:to-gray-900">
+  <section class="py-6">
+    <div class="max-w-screen-xl mx-auto">
+      <h1 class="title text-3xl font-bold mt-6 mb-4 text-white dark:text-white">Все пользователи сайта</h1>
+      <div class="users grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <% @users.each do |user| %>
+          <div class="user-card bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 p-4">
+            <h2 class="user-card__title text-xl font-semibold text-gray-900 dark:text-white">
+              <%= user.name %>
+            </h2>
+            <span class="user-card__username text-gray-500 dark:text-gray-400">
+              <%= user.username %>
+            </span>
+            <%= link_to 'Перейти в профиль', user_path(user), class: 'user-card__link mt-2 block text-blue-500 hover:text-blue-400 font-semibold' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</div>
