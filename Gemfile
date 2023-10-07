@@ -15,7 +15,8 @@ gem 'webpacker', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # custom gems begin
-
+gem "tailwindcss-rails", "~> 2.0"
+gem "devise", "~> 4.9"
 # end
 
 group :development, :test do
@@ -28,4 +29,3 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'hirb'
 end
-gem "tailwindcss-rails", "~> 2.0"
