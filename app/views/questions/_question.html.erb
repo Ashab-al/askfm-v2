@@ -12,4 +12,8 @@
       <%= question.answer %>
     </p>
   <% end %>
+
+  <% if user_can_destroy_question?(question) && question.id.present? %>
+    <%= link_to 'Удалить вопрос', question_path(question), method: :delete, data: {confirm: 'Уверены, что хотите удалить вопрос?'} %>
+  <% end %>
 </div>

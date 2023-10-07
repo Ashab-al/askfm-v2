@@ -1,36 +1,12 @@
 class QuestionsController < ApplicationController
-  before_action :check_author_id, only: [:update]
-  before_action :checking_for_nil_text_author_name, only: [:create, :update]
-
-  
-  def index
-    @questions = Question.all
-  end
-
-  def new
-    
-  end
+  before_action :authenticate_user!
+  before_action :load_question, only: [:update, :destroy]
 
   def edit
   end
 
-  def destroy
-
-  end
-
   def show
   end
-
-  def update
-    @question = Question.find(params[:id])
-
-    if @question.update(question_update_params)
-      redirect_back fallback_location: root_path, notice: "Вопрос успешно обновлен"
-    else
-      render 'edit'
-    end
-  end
-  
 
   def create
     @question = Question.new(question_params)
@@ -40,11 +16,30 @@ class QuestionsController < ApplicationController
     else
       render 'new'
     end
-    
   end
-  
+
+  def update
+    if @question.update(question_update_params)
+      redirect_back fallback_location: root_path, notice: "Вопрос успешно обновлен"
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @question_text = @question.text
+    @question.destroy
+
+    flash[:success] = "#{current_user.name}, вопрос #{@question_text} успешно удалён"
+
+    redirect_to user_path(current_user)
+  end
 
   private
+
+  def load_question 
+    @question = Question.find(params[:id])
+  end
 
   def question_params
     params.require(:question).permit(:text, :author_name, :user_id, :author_id)
@@ -52,11 +47,5 @@ class QuestionsController < ApplicationController
 
   def question_update_params
     params.require(:question).permit(:answer, :text)
-  end
-
-  def checking_for_nil_text_author_name
-    unless question_params[:text].present? || question_params[:author_name].present?
-      redirect_back fallback_location: root_path, notice: "Поля должны быть заполнены"
-    end
   end
 end
