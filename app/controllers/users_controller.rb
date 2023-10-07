@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :load_user, except: [:index, :create, :new]
+  before_action :authenticate_user!, except: [:show, :index]
+  before_action :load_user, only: [:show]
+  before_action :set_current_user, only: [:edit, :update]
 
   def index
     @users = User.all
@@ -41,6 +43,10 @@ class UsersController < ApplicationController
 
   def load_user
     @user ||= User.find params[:id]
+  end
+
+  def set_current_user
+    @user = current_user
   end
 
   def update_user_params
