@@ -1,42 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AskfmV2</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= javascript_pack_tag 'application' %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  </head>
-  <body>
-    <header class="header">
-      <div class="container">
-      <% if flash.any? %>
-        <% flash.each do |name, message| %>
-          <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
-            <div class="flex">
-              <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
-              <div>
-                <p class="font-bold"><%= message %></p>
-              </div>
-            </div>
-          </div>
+<head>
+  <title>AskfmV2</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+<body class="bg-slate-900 text-white">
+  <header class="header bg-slate-800">
+    <div class="container flex justify-between items-center">
+      <h1 class="text-3xl font-bold"> <%= link_to 'AskfmV2', root_path %> </h1>
+      <ul class="header-nav flex space-x-4">
+        <% if user_signed_in? %>
+          <li class="header-item"><%= link_to 'Профиль', current_user, class: 'text-lg' %> </li>
+          <li class="header-item"><%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'text-lg' %> </li>
+        <% else %>
+          <li class="header-item"><%= link_to 'Войти', new_user_session_path, class: 'text-lg' %> </li>
+          <li class="header-item"><%= link_to 'Регистрация', new_user_registration_path, class: 'text-lg' %> </li>
         <% end %>
-      <% end %>        
-        <ul class="header-nav">
-          <% if user_signed_in? %>
-            <li class="header-item"><%= link_to 'Профиль', current_user %> </li>
-            <li class="header-item"><%= link_to 'Выйти', destroy_user_session_path, method: :delete %> </li>
-          <% else %>
-            <li class="header-item"><%= link_to 'Войти', new_user_session_path %> </li>
-            <li class="header-item"><%= link_to 'Регистрация', new_user_registration_path %> </li>
-          <% end %>
-        </ul>
-      </div>
-    </header>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
-  </body>
+      </ul>
+    </div>
+  </header>
+  <main class="container mx-auto mt-28 px-5 flex">
+    <%= yield %>
+  </main>
+</body>
 </html>

@@ -1,10 +1,10 @@
-<div class="bg-gradient-to-r from-blue-400 to-indigo-600 dark:from-gray-800 dark:to-gray-900">
+<div class="bg-gradient-to-r from-blue-400 to-indigo-600 dark:from-slate-900">
   <section class="py-6">
     <div class="max-w-screen-xl mx-auto">
-      <h1 class="title text-3xl font-bold mt-6 mb-4 text-white dark:text-white">Все пользователи сайта</h1>
+      <h1 class="title  text-5xl font-bold mt-6 mb-4 text-white dark:text-white ">Все пользователи сайта</h1>
       <div class="users grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <% @users.each do |user| %>
-          <div class="user-card bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 p-4">
+          <div class="user-card bg-white rounded-lg shadow dark:border dark:bg-slate-800 dark:border-slate-700 p-4 hover:bg-slate-900">
             <h2 class="user-card__title text-xl font-semibold text-gray-900 dark:text-white">
               <%= user.name %>
             </h2>
