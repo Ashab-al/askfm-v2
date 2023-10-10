@@ -21,7 +21,7 @@
     </p>
   <% end %>
 
-  <% if user_can_destroy_question?(question) && question.id.present? %>
+  <% if user_can_destroy_question?(question) && question.id.present? || question.author == current_user%>
     <%= link_to 'Удалить вопрос', question_path(question), method: :delete, data: {confirm: 'Уверены, что хотите удалить вопрос?'} %>
   <% end %>
 </div>
