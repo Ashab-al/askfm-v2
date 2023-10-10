@@ -32,7 +32,7 @@ class QuestionsController < ApplicationController
 
     flash[:success] = "#{current_user.name}, вопрос #{@question_text} успешно удалён"
 
-    redirect_to user_path(current_user)
+    redirect_to user_path(@question.user)
   end
 
   private
