@@ -1,4 +1,8 @@
 <div class="question bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 p-4 my-4">
+  <p class="question-answer mt-2 text-gray-700 dark:text-white">
+    <%= question.user.name %>
+  </p>
+
   <h3 class="question-title text-lg font-semibold text-gray-900 dark:text-white">
     <%= question.text %>
   </h3>
@@ -17,3 +21,6 @@
     <%= link_to 'Удалить вопрос', question_path(question), method: :delete, data: {confirm: 'Уверены, что хотите удалить вопрос?'} %>
   <% end %>
 </div>
+
+
+
