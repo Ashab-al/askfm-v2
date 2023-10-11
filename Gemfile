@@ -19,6 +19,7 @@ gem "tailwindcss-rails", "~> 2.0"
 gem "devise", "~> 4.9"
 gem 'i18n'
 gem 'rails-i18n'
+gem 'mailcatcher'
 # end
 
 group :development, :test do
