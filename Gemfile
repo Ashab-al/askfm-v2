@@ -17,6 +17,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # custom gems begin
 gem "tailwindcss-rails", "~> 2.0"
 gem "devise", "~> 4.9"
+gem 'mailcatcher'
 # end
 
 group :development, :test do
