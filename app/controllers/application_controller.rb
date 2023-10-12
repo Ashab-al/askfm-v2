@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :user_can_destroy_question?
 
+  def change_language
+    I18n.locale = params[:locale]
+    redirect_back fallback_location: root_path, notice: "Язык успешно изменён"
+  end
+
   private
 
   def user_can_destroy_question?(question) 
