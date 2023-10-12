@@ -11,21 +11,21 @@ class UsersController < ApplicationController
     @new_question = @user.questions.build
   end
 
-  def new
-    @user = User.new
-  end
+  # def new
+  #   @user = User.new
+  # end
 
-  def create 
+  # def create 
 
-    @user = User.new(user_params)
+  #   @user = User.new(user_params)
 
-    if @user.save
-      flash[:success] = "#{@user.name}, ваш аккаунт успешно создан!"
-      redirect_to user_path(@user.id)
-    else
-      render 'new'
-    end
-  end
+  #   if @user.save
+  #     flash[:success] = "#{@user.name}, ваш аккаунт успешно создан!"
+  #     redirect_to user_path(@user.id)
+  #   else
+  #     render 'new'
+  #   end
+  # end
 
   def edit
   end
