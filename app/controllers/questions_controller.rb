@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:create]
   before_action :load_question, only: [:update, :destroy]
+  before_action :can_the_user_edit_the_question, only: [:update, :destroy]
 
   def edit
   end
@@ -27,12 +28,14 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question_text = @question.text
-    @question.destroy
+    if @question.user == current_user || @question.author == current_user
+      @question_text = @question.text
+      @question.destroy
 
-    flash[:success] = "#{current_user.name}, вопрос #{@question_text} успешно удалён"
+      flash[:success] = "#{current_user.name}, вопрос #{@question_text} успешно удалён"
 
-    redirect_to user_path(@question.user)
+      redirect_to user_path(@question.user)
+    end
   end
 
   private
@@ -47,5 +50,11 @@ class QuestionsController < ApplicationController
 
   def question_update_params
     params.require(:question).permit(:answer, :text)
+  end
+
+  def can_the_user_edit_the_question
+    unless @question.user != current_user || @question.author != current_user
+      redirect_to root_path, alert: 'Доступ запрещён'
+    end
   end
 end
