@@ -12,7 +12,7 @@
 <body class="bg-slate-900 text-white">
   <header class="header bg-slate-800">
     <div class="container flex justify-between items-center">
-      <h1 class="text-3xl font-bold"> <%= link_to 'AskfmV2', root_path %> </h1>
+      <h1 class="text-3xl font-bold"> <%= link_to t('title'), root_path %> </h1>
       <ul class="header-nav flex space-x-4">
         <% if user_signed_in? %>
           <li class="header-item"><%= link_to 'Профиль', current_user, class: 'text-lg' %> </li>
@@ -21,6 +21,10 @@
           <li class="header-item"><%= link_to 'Войти', new_user_session_path, class: 'text-lg' %> </li>
           <li class="header-item"><%= link_to 'Регистрация', new_user_registration_path, class: 'text-lg' %> </li>
         <% end %>
+        <form action="<%= change_language_path %>" method="post" class="form">
+          <%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
+          <%= select_tag(:locale, options_for_select([ ['English', 'en'], ['Русский', 'ru'] ], I18n.locale ), onchange: 'this.form.submit();') %>
+        </form>
       </ul>
     </div>
   </header>

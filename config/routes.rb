@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :users, except: [:delete]
   resources :questions, except: [:index, :new, :show]
 
+  post 'change_language', to: 'application#change_language', as: :change_language
 end
