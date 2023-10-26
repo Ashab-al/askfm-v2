@@ -9,17 +9,17 @@
   <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
-<body class="bg-slate-900 text-white">
+<body class="bg-slate-900 text-black">
   <header class="header bg-slate-800">
     <div class="container flex justify-between items-center">
-      <h1 class="text-3xl font-bold"> <%= link_to t('title'), root_path %> </h1>
+      <h1 class="text-3xl font-bold text-white"> <%= link_to t('title'), root_path %> </h1>
       <ul class="header-nav flex space-x-4">
         <% if user_signed_in? %>
-          <li class="header-item"><%= link_to 'Профиль', current_user, class: 'text-lg' %> </li>
-          <li class="header-item"><%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'text-lg' %> </li>
+          <li class="header-item text-white"><%= link_to 'Профиль', current_user, class: 'text-lg' %> </li>
+          <li class="header-item text-white"><%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'text-lg' %> </li>
         <% else %>
-          <li class="header-item"><%= link_to 'Войти', new_user_session_path, class: 'text-lg' %> </li>
-          <li class="header-item"><%= link_to 'Регистрация', new_user_registration_path, class: 'text-lg' %> </li>
+          <li class="header-item text-white"><%= link_to 'Войти', new_user_session_path, class: 'text-lg' %> </li>
+          <li class="header-item text-white"><%= link_to 'Регистрация', new_user_registration_path, class: 'text-lg' %> </li>
         <% end %>
         <form action="<%= change_language_path %>" method="post" class="form">
           <%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
