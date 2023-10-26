@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:create]
   before_action :load_question, only: [:update, :destroy]
   before_action :can_the_user_edit_the_question, only: [:update, :destroy]
+  before_action :is_owner, only: [:destroy]
 
   def edit
   end
@@ -56,5 +57,11 @@ class QuestionsController < ApplicationController
     unless @question.user != current_user || @question.author != current_user
       redirect_to root_path, alert: 'Доступ запрещён'
     end
+  end
+
+  def is_owner
+    return (@question.user == current_user || @question.author == current_user)
+    flash[:alert] = "#{current_user.name}, у Вас нет прав удалить вопрос!"
+    redirect_to user_path(@question.user)
   end
 end
