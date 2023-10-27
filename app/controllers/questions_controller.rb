@@ -39,6 +39,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def questions_by_tag
+    @tag = Tag.find_by(title: params[:tag_title])
+    @questions = @tag.questions
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
   private
 
   def load_question 
