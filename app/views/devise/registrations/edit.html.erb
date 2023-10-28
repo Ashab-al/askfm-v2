@@ -1,43 +1,56 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<section class="bg-gray-50 bg-slate-900 ">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+          
+      </a>
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, :class => 'space-y-4 md:space-y-6')  do |f| %>
+                <% if resource.errors.any? %>
+                  <div class="form__errors">
+                    <% for message in @user.errors.full_messages %>
+                      <div role="alert">
+                        <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                          Ошибка валидации
+                        </div>
+                        <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                          <p><%= message %></p>
+                         
+                        </div>
+                      </div>  
+                    <% end %>
+                  </div>
+                <% end %>
+                <h1 class="text-xl mb-6 font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  Изменение профиля <%= resource.username %>
+                </h1>
+                <div class="mb-6">
+                  <%= f.label :name, 'Ваше имя', class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+                  <%= f.text_field :name, class: 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+                </div>
+                <div class="mb-6">
+                  <%= f.label :avatar_url, 'URL вашего аватара', class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+                  <%= f.text_field :avatar_url, class: 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+                </div>
+                
+                <div class="mb-6">
+                  <%= f.label :email, class: 'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' %>
+                </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <div>В настоящее время ожидает подтверждения для: <%= resource.unconfirmed_email %></div>
+                <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                <div>
+                  <%= f.submit 'Изменить', class: 'bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded' %>
+                </div>
+            <% end %>
+
+            <%= button_to "Удалить аккаунт", registration_path(resource_name), data: { confirm: "Вы уверены?", turbo_confirm: "Вы уверены?" }, method: :delete, class: 'bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded' %>
+          </div>
+      </div>
   </div>
+</section>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>

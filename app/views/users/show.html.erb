@@ -9,7 +9,7 @@
             <%= image_tag user_avatar(@user), alt: 'Аватар пользователя #{@user.name}', class: 'rounded-full w-32 h-32 object-cover' %>
           </div>
           <% if @user == current_user %>
-            <%= link_to 'Редактировать профиль', edit_user_path(@user), class: 'bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-4 block max-w-xs mx-auto text-center' %>
+            <%= link_to 'Редактировать профиль', edit_user_registration_path(current_user), class: 'bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-4 block max-w-xs mx-auto text-center' %>
           <% end %>
         </div>
       </div>
