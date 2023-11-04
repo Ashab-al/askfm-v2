@@ -5,12 +5,14 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    prepare_viewed_users
   end
 
   def show
     @new_question = @user.questions.build
-
     @tags = @user.questions.joins(:tags).distinct.pluck(:title)
+
+    prepare_viewed_users true
   end
 
   def edit
@@ -26,6 +28,12 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def prepare_viewed_users(need_to_add=false)
+    viewed_pages_service = PublicUsers::ViewedUsers.new(session)
+    viewed_pages_service.add_page(current_user, @user) if need_to_add
+    @last_viewed_users = viewed_pages_service.get_viewed_users
+  end
 
   def load_user
     @user ||= User.find params[:id]
