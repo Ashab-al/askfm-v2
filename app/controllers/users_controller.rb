@@ -9,6 +9,8 @@ class UsersController < ApplicationController
 
   def show
     @new_question = @user.questions.build
+
+    @tags = @user.questions.joins(:tags).distinct.pluck(:title)
   end
 
   def edit

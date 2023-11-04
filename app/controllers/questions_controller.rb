@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: [:create]
+  before_action :authenticate_user!, except: [:create, :questions_by_tag]
   before_action :load_question, only: [:update, :destroy]
   before_action :is_owner?, only: [:update, :destroy]
 
@@ -35,6 +35,16 @@ class QuestionsController < ApplicationController
       flash[:success] = "#{current_user.name}, вопрос #{@question_text} успешно удалён"
 
       redirect_to user_path(@question.user)
+    end
+  end
+
+  def questions_by_tag
+    @tag = Tag.find_by(title: params[:tag_title])
+
+    if @tag
+      render json: @tag.questions, status: :ok
+    else
+      render json: {error: 'Tag not found'}, status: :not_found
     end
   end
 

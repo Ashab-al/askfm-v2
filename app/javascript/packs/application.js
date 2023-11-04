@@ -8,6 +8,13 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+import QuestionTagsController from './controllers/question_tags_controller'
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  new QuestionTagsController()
+})
