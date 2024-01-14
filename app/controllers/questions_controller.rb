@@ -1,7 +1,11 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:create, :questions_by_tag]
   before_action :load_question, only: [:update, :destroy]
-  before_action :is_owner?, only: [:update, :destroy]
+  before_action :authorize_question, only: [:update, :destroy]
+
+  def index 
+    @question = policy_scope(Question)
+  end
 
   def edit
   end
@@ -11,7 +15,9 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-
+    unless QuestionPolicy.new(current_user).create?
+      raise Pundit::NotAuthorizedError, "not allowed to update? this #{@question.inspect}"
+    end
     if @question.save
       redirect_back fallback_location: root_path, notice: "Вопрос успешно добавлен"
     else
@@ -20,6 +26,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    
     if @question.update(question_update_params)
       redirect_back fallback_location: root_path, notice: "Вопрос успешно обновлен"
     else
@@ -28,14 +35,13 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if @question.user == current_user || @question.author == current_user
-      @question_text = @question.text
-      @question.destroy
 
-      flash[:success] = "#{current_user.name}, вопрос #{@question_text} успешно удалён"
+    @question_text = @question.text
+    @question.destroy
 
-      redirect_to user_path(@question.user)
-    end
+    flash[:success] = "#{current_user.name}, вопрос #{@question_text} успешно удалён"
+
+    redirect_to user_path(@question.user)
   end
 
   def questions_by_tag
@@ -62,9 +68,7 @@ class QuestionsController < ApplicationController
     params.require(:question).permit(:answer, :text)
   end
 
-  def is_owner?
-    unless (@question.user == current_user || @question.author == current_user)
-      redirect_to root_path, alert: 'Доступ запрещён'
-    end
+  def authorize_question
+    authorize @question
   end
 end

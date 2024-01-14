@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+
+  after_action :verify_authorized, except: [:index, :show]
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :user_can_destroy_question?
@@ -12,6 +18,11 @@ class ApplicationController < ActionController::Base
 
   def user_can_destroy_question?(question) 
     user_signed_in? && current_user == question.user 
+  end
+
+  def user_not_authorized
+    flash[:alert] = 'Вам нет доступа к этому действию'
+    redirect_to(request.referrer || root_path)
   end
 
   protected

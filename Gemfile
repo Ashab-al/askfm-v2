@@ -20,6 +20,7 @@ gem "devise", "~> 4.9"
 gem 'i18n'
 gem 'rails-i18n'
 gem 'mailcatcher'
+gem 'pundit'
 # end
 
 group :development, :test do
