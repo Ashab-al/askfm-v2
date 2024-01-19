@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:create, :questions_by_tag]
   before_action :load_question, only: [:update, :destroy]
-  before_action :authorize_question, only: [:update, :destroy]
+  # before_action :authorize_question, only: [:update, :destroy]
 
   def index 
     @question = policy_scope(Question)
@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-    unless QuestionPolicy.new(current_user).create?
+    unless QuestionPolicy.new(@question, current_user).create?
       raise Pundit::NotAuthorizedError, "not allowed to update? this #{@question.inspect}"
     end
     if @question.save
@@ -26,6 +26,9 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    unless QuestionPolicy.new(@question, current_user).update?
+      raise Pundit::NotAuthorizedError, "not allowed to update? this #{@question.inspect}"
+    end
     
     if @question.update(question_update_params)
       redirect_back fallback_location: root_path, notice: "Вопрос успешно обновлен"
@@ -35,6 +38,9 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    unless QuestionPolicy.new(@question, current_user).destroy?
+      raise Pundit::NotAuthorizedError, "not allowed to update? this #{@question.inspect}"
+    end
 
     @question_text = @question.text
     @question.destroy
@@ -68,7 +74,7 @@ class QuestionsController < ApplicationController
     params.require(:question).permit(:answer, :text)
   end
 
-  def authorize_question
-    authorize @question
-  end
+  # def authorize_question
+  #   authorize @question
+  # end
 end
